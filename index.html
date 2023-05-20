@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        aside {
+            width: 20%;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+            float: left;
+        }
+
+        aside ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        aside ul li {
+            padding: 1rem;
+            border-bottom: 1px solid #fff;
+        }
+
+        aside ul li:last-child {
+            border-bottom: none;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            background-color: #000;
+            color: #fff;
+        }
+
+        header svg {
+            /* Flex start */
+            justify-self: flex-start;
+            width: 1.2em;
+        }
+
+        header h2 {
+            /* Flex end */
+            justify-self: flex-end;
+            margin: 0 0 0 1rem;
+        }
+
+        /* MAIN */
+        main {
+            display: flex;
+            flex-direction: column;
+            /* 100% height - form height */
+            height: calc(100vh - 3rem);
+        }
+
+        main .chat-history {
+            flex-grow: 1;
+            overflow-y: scroll;
+        }
+
+        main .chat-history article {
+            padding: 1rem;
+            border-bottom: 1px solid #000;
+        }
+
+        main .chat-history article:last-child {
+            border-bottom: none;
+        }
+
+        main .chat-history article p {
+            margin: 0;
+        }
+
+        /* CHAT INPUT */
+        form {
+            display: flex;
+            height: 3rem;
+        }
+
+        form input[type="text"] {
+            flex-grow: 1;
+            padding: 0 1rem;
+            border: none;
+            border-right: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Chat History Titles -->
+    <aside>
+        <ul>
+            <li>Chat 1</li>
+            <li>Chat 2</li>
+            <li>Chat 3</li>
+        </ul>
+    </aside>
+    <header>
+        <!-- Hamburger bar -->
+        <svg viewBox="0 0 100 80" width="40" height="40">
+            <rect width="100" height="20"></rect>
+            <rect y="30" width="100" height="20"></rect>
+            <rect y="60" width="100" height="20"></rect>
+            <style>
+                rect {
+                    fill: #000;
+                }
+            </style>
+        </svg>
+        <h2>Title</h2>
+    </header>
+    <main>
+        <!-- Chat History -->
+        <section class="chat-history">
+            <article>
+                <p>Message</p>
+            </article>
+            <article>
+                <p>Message</p>
+            </article>
+        </section>
+
+        <!-- Chat Input -->
+        <form action="chat.php" method="post">
+            <input type="text" name="message" id="message" placeholder="Type your message here">
+            <input type="submit" value="Send">
+        </form>
+    </main>
+</body>
+
+</html>
