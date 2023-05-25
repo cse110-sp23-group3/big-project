@@ -25,7 +25,7 @@ jobs:
           script: |
             const fs = require('fs');
             const releaseNotes = fs.readFileSync('release_notes.txt', 'utf8');
-            const readmePath = '.github/README.md';
+            const readmePath = 'README.md';
             let readmeContent = fs.readFileSync(readmePath, 'utf8');
             const releaseNotesPlaceholder = '<!-- RELEASE_NOTES -->';
             const updatedReadme = readmeContent.replace(releaseNotesPlaceholder, releaseNotes);
