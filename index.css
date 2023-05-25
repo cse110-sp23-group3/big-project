@@ -1,0 +1,87 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+aside {
+    width: 20%;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    float: left;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside ul li {
+    padding: 1rem;
+    border-bottom: 1px solid #fff;
+}
+
+aside ul li:last-child {
+    border-bottom: none;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    background-color: #000;
+    color: #fff;
+}
+
+header svg {
+    /* Flex start */
+    justify-self: flex-start;
+    width: 1.2em;
+}
+
+header h2 {
+    /* Flex end */
+    justify-self: flex-end;
+    margin: 0 0 0 1rem;
+}
+
+/* MAIN */
+main {
+    display: flex;
+    flex-direction: column;
+    /* 100% height - form height */
+    height: calc(100vh - 3rem);
+}
+
+main .chat-history {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+main .chat-history article {
+    padding: 1rem;
+    border-bottom: 1px solid #000;
+}
+
+main .chat-history article:last-child {
+    border-bottom: none;
+}
+
+main .chat-history article p {
+    margin: 0;
+}
+
+/* CHAT INPUT */
+form {
+    display: flex;
+    height: 3rem;
+}
+
+form input[type="text"] {
+    flex-grow: 1;
+    padding: 0 1rem;
+    border: none;
+    border-right: 1px solid #000;
+}
