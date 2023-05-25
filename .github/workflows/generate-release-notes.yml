@@ -3,7 +3,7 @@ name: Update Release Notes
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   release:
@@ -24,19 +24,21 @@ jobs:
       - name: Generate Release Notes
         id: release-notes
         run: |
-          # Collect all commit messages
-          COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges)
+          # Collect commit messages since the last release
+          LAST_TAG=$(git describe --abbrev=0 --tags)
+          COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges $LAST_TAG..HEAD)
 
           # Format commit messages as release notes
-          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | sed -e 's/^/ - /')
+          VERSION=$(git describe --abbrev=0 --tags)
+          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | sed -e "s/^/ - $VERSION: /")
 
           echo "::set-output name=notes::$RELEASE_NOTES"
 
       - name: Update README
         run: |
-          # Append release notes to README.md
-          echo -e "\n\n## Release Notes\n" >> README.md
-          echo "${{ steps.release-notes.outputs.notes }}" >> README.md
+          # Replace existing release notes with new ones
+          sed -i '0,/^## Release Notes/{s/^## Release Notes.*/## Release Notes/}' README.md
+          sed -i "/## Release Notes/a $(echo -e '\n\n'${{ steps.release-notes.outputs.notes }})" README.md
 
       - name: Commit changes
         run: |
