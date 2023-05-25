@@ -24,13 +24,11 @@ jobs:
       - name: Generate Release Notes
         id: release-notes
         run: |
-          # Collect commit messages since the last release
-          LAST_TAG=$(git describe --abbrev=0 --tags)
-          COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges $LAST_TAG..HEAD)
+          # Collect all commit messages
+          COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges)
 
           # Format commit messages as release notes
-          VERSION=$(git describe --abbrev=0 --tags)
-          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | sed -e "s/^/ - $VERSION: /")
+          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | sed -e 's/^/ - /')
 
           echo "::set-output name=notes::$RELEASE_NOTES"
 
