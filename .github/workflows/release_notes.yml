@@ -1,0 +1,32 @@
+name: Auto-generate Release Notes
+
+on:
+  push:
+    branches:
+      - releasenotestest
+
+jobs:
+  generate-release-notes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate Release Notes
+        run: |
+          git fetch --unshallow --tags
+          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" > release_notes.txt
+
+      - name: Update README
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const releaseNotes = fs.readFileSync('release_notes.txt', 'utf8');
+            const readmePath = '.github/README.md';
+            let readmeContent = fs.readFileSync(readmePath, 'utf8');
+            const releaseNotesPlaceholder = '<!-- RELEASE_NOTES -->';
+            const updatedReadme = readmeContent.replace(releaseNotesPlaceholder, releaseNotes);
+            fs.writeFileSync(readmePath, updatedReadme);
