@@ -1,4 +1,5 @@
-name: Generate Release Notes
+name: Update Release Notes
+
 on:
   push:
     branches:
@@ -28,16 +29,20 @@ jobs:
           COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges $LAST_TAG..HEAD)
 
           # Format commit messages as release notes
-          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | awk 'BEGIN {print "## Release Notes\n"} /^feat/ {print "- **Feature:** " substr($0, 6)} /^fix/ {print "- **Bug Fix:** " substr($0, 5)} /^docs/ {print "- **Documentation:** " substr($0, 6)}')
+          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | sed -e 's/^/ - /')
 
           echo "::set-output name=notes::$RELEASE_NOTES"
 
-      - name: Create Release
-        id: create-release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ steps.release-notes.outputs.notes }}
+      - name: Update README
+        run: |
+          # Append release notes to README.md
+          echo -e "\n\n## Release Notes\n" >> README.md
+          echo "${{ steps.release-notes.outputs.notes }}" >> README.md
+
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "<>"
+          git add README.md
+          git commit -m "Update release notes [skip ci]"
+          git push
