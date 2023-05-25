@@ -1,32 +1,45 @@
-name: Auto-generate Release Notes
-
 on:
   push:
     branches:
-      - releasenotestest
+      - main
 
 jobs:
-  generate-release-notes:
+  release:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Generate Release Notes
+        id: release-notes
         run: |
-          git fetch --unshallow --tags
-          git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" > release_notes.txt
+          # Collect all commit messages
+          COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges)
+
+          # Format commit messages as release notes
+          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | sed -e 's/^/ - /')
+
+          echo "::set-output name=notes::$RELEASE_NOTES"
 
       - name: Update README
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const releaseNotes = fs.readFileSync('release_notes.txt', 'utf8');
-            const readmePath = './README.md';
-            let readmeContent = fs.readFileSync(readmePath, 'utf8');
-            const releaseNotesPlaceholder = '<!-- RELEASE_NOTES -->';
-            const updatedReadme = readmeContent.replace(releaseNotesPlaceholder, releaseNotes);
-            fs.writeFileSync(readmePath, updatedReadme);
+        run: |
+          # Append release notes to README.md
+          echo -e "\n\n## Release Notes\n" >> README.md
+          echo "${{ steps.release-notes.outputs.notes }}" >> README.md
+
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "<>"
+          git add README.md
+          git commit -m "Update release notes [skip ci]"
+          git push
