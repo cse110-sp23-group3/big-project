@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - releasenotestest
+  create:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
