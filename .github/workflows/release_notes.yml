@@ -50,4 +50,4 @@ jobs:
           git config user.email "<>"
           git add README.md
           git commit -m "Add release notes"
-          git push origin HEAD:main
+          git push origin HEAD:releasenotestest
