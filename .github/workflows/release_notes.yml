@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - releasenotestest
+    tags:
+      - 'v*'
 
 jobs:
   release:
@@ -22,11 +24,17 @@ jobs:
       - name: Generate Release Notes
         id: release-notes
         run: |
-          # Collect all commit messages
-          COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges)
+          # Collect all commit messages between last and second to last tags
+          LAST_TAG=$(git describe --abbrev=0 --tags)
+          SECOND_TO_LAST_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
+          echo $LAST_TAG
+          echo $SECOND_TO_LAST_TAG
+          COMMIT_MESSAGES=$(git log --pretty=format:'%s' --no-merges $SECOND_TO_LAST_TAG..$LAST_TAG)
+          echo $COMMIT_MESSAGES
 
           # Format commit messages as release notes
           RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | sed -e 's/^/ - /')
+          echo $RELEASE_NOTES
 
           echo "::set-output name=notes::$RELEASE_NOTES"
 
@@ -34,12 +42,12 @@ jobs:
         run: |
           # Append release notes to README.md
           echo -e "\n\n## Release Notes\n" >> README.md
-          echo "${{ steps.release-notes.outputs.notes }}" >> README.md
+          echo -e "${{ steps.release-notes.outputs.notes }}" >> README.md
 
       - name: Commit changes
         run: |
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add README.md
-          git commit -m "Update release notes [skip ci]"
-          git push
+          git commit -m "Add release notes"
+          git push origin HEAD:main
