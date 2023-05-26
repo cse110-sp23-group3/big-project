@@ -38,7 +38,7 @@ jobs:
           RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | awk 'BEGIN {print "## Release Notes\n"} /^feat/ {print "- **Feature:** " substr($0, 6)} /^fix/ {print "- **Bug Fix:** " substr($0, 5)} /^docs/ {print "- **Documentation:** " substr($0, 6)}')
           echo $RELEASE_NOTES
 
-          echo "::set-output name=notes::$RELEASE_NOTES"
+          echo '::set-output name=notes::'"$RELEASE_NOTES"
 
       - name: Update README
         run: |
