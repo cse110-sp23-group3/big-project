@@ -30,3 +30,8 @@
 ## Release Notes
 
  - Added Hello World message
+
+
+## Release Notes
+
+ - Add Hello GitHub Actions message
