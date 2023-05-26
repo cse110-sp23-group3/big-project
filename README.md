@@ -55,3 +55,8 @@
 ## Release Notes
 
  - Add Hello GitHub Actions message
+
+
+## Release Notes
+
+ - fix git pull command error
