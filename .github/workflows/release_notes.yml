@@ -43,7 +43,8 @@ jobs:
       - name: Update README
         run: |
           # Append release notes to README.md
-          # echo -e "\n\n## Release Notes\n" >> README.md
+          echo ${{ steps.release-notes.outputs.notes }}
+          echo -e "\n\n## Release Notes\n" >> README.md
           echo -e "${{ steps.release-notes.outputs.notes }}" >> README.md
 
       - name: Commit changes
