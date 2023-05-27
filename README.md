@@ -64,3 +64,6 @@
 ## $LAST_TAG
 
 - **Feature:**  new way to show release notes
+## ver 
+
+- **Feature:**  add new message
