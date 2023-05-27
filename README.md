@@ -57,3 +57,7 @@
 ## Release Notes
 
 - **Feature:**  Add exclamation point
+## Release Notes
+
+- **Bug Fix:**  add message 1-9
+- **Feature:**  remove most random messages I typed
