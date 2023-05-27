@@ -43,7 +43,7 @@ jobs:
       - name: Update README
         run: |
           # Append release notes to README.md
-          RELEASE_NOTES = ${{ steps.release-notes.outputs.notes }}
+          RELEASE_NOTES=${{ steps.release-notes.outputs.notes }}
           echo $RELEASE_NOTES
           echo -e "\n\n## Release Notes\n" >> README.md
           echo $RELEASE_NOTES >> README.md
