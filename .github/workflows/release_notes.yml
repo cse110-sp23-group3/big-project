@@ -38,12 +38,12 @@ jobs:
           RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | awk 'BEGIN {print "## Release Notes\n"} /^feat/ {print "- **Feature:** " substr($0, 6)} /^fix/ {print "- **Bug Fix:** " substr($0, 5)} /^docs/ {print "- **Documentation:** " substr($0, 6)}')
           echo $RELEASE_NOTES
 
-          echo '::set-output name=notes::$RELEASE_NOTES'
+          echo '::set-output name=notes::'"$RELEASE_NOTES"
 
       - name: Update README
         run: |
           # Append release notes to README.md
-          echo "release notes variable: ${{ steps.release-notes.outputs.notes }}"
+          echo -E "release notes variable: ${{ steps.release-notes.outputs.notes }}"
           echo -e "\n\n## Release Notes\n" >> README.md
           echo "${{ steps.release-notes.outputs.notes }}" >> README.md
 
