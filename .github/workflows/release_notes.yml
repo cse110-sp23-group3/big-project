@@ -46,8 +46,8 @@ jobs:
           echo "release notes variable: ${{ steps.release-notes.outputs.notes }}"
           echo -e "\n\n## Release Notes\n" >> README.md
           cat <<EOT >> README.md
-      ${{ steps.release-notes.outputs.notes }}
-      EOT
+${{ steps.release-notes.outputs.notes }}
+EOT
 
       - name: Commit changes
         run: |
