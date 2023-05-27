@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate Release Notes
+      - name: Generate Release Notes and Update README
         id: release-notes
         run: |
           # Collect all commit messages between last and second to last tags
@@ -38,13 +38,7 @@ jobs:
           RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | awk 'BEGIN {print "## Release Notes\n"} /^feat/ {print "- **Feature:** " substr($0, 6)} /^fix/ {print "- **Bug Fix:** " substr($0, 5)} /^docs/ {print "- **Documentation:** " substr($0, 6)}')
           echo $RELEASE_NOTES
 
-          echo '::set-output name=notes::'"$RELEASE_NOTES"
-
-      - name: Update README
-        run: |
           # Append release notes to README.md
-          RELEASE_NOTES="${{ steps.release-notes.outputs.notes }}"
-          echo $RELEASE_NOTES
           echo -e "\n\n## Release Notes\n" >> README.md
           echo $RELEASE_NOTES >> README.md
 
