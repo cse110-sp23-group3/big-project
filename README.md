@@ -15,3 +15,7 @@
 - **Bug Fix:**  fix more bugs
 - **Feature:**  add even more features
 - **Feature:**  add features
+## v3.2.6
+
+- **Bug Fix:**  bug fixes
+- **Feature:**  add new features
