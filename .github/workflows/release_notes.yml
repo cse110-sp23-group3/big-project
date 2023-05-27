@@ -35,7 +35,7 @@ jobs:
           echo $COMMIT_MESSAGES
 
           # Format commit messages as release notes
-          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | awk 'BEGIN {print "## $LAST_TAG\n"} /^feat/ {print "- **Feature:** " substr($0, 6)} /^fix/ {print "- **Bug Fix:** " substr($0, 5)} /^docs/ {print "- **Documentation:** " substr($0, 6)}')
+          RELEASE_NOTES=$(echo "$COMMIT_MESSAGES" | awk -v ver="$LAST_TAG" 'BEGIN {print "## ver \n"} /^feat/ {print "- **Feature:** " substr($0, 6)} /^fix/ {print "- **Bug Fix:** " substr($0, 5)} /^docs/ {print "- **Documentation:** " substr($0, 6)}')
           echo $RELEASE_NOTES
 
           # Append release notes to README.md
