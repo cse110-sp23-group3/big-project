@@ -39,7 +39,6 @@ jobs:
           echo $RELEASE_NOTES
 
           # Append release notes to README.md
-          echo -e "\n\n## Release Notes\n" >> README.md
           echo -e "$RELEASE_NOTES" >> README.md
 
       - name: Commit changes
