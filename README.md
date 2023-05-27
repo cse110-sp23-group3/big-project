@@ -61,3 +61,6 @@
 
 - **Bug Fix:**  add message 1-9
 - **Feature:**  remove most random messages I typed
+## $LAST_TAG
+
+- **Feature:**  new way to show release notes
