@@ -43,9 +43,11 @@ jobs:
       - name: Update README
         run: |
           # Append release notes to README.md
-          printf "release notes variable: ${{ steps.release-notes.outputs.notes }}"
+          echo "release notes variable: ${{ steps.release-notes.outputs.notes }}"
           echo -e "\n\n## Release Notes\n" >> README.md
-          printf "${{ steps.release-notes.outputs.notes }}" >> README.md
+          cat <<EOT >> README.md
+      ${{ steps.release-notes.outputs.notes }}
+      EOT
 
       - name: Commit changes
         run: |
