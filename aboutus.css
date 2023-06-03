@@ -3,6 +3,33 @@ main {
   display: flex;
   flex-direction: column;
   height: calc(100vh - var(--header-height) - 1px);
+  align-items: center;
+}
+
+div#about-column {
+  border-style: inset;
+  height: 100%;
+  width: 90vw;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+div#about-title {
+  width: 100%;
+  background-color: rgb(217, 217, 217);
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+}
+
+a#back-to-chat {
+  justify-self: center;
+  align-self: center;
+}
+
+h1 {
+  justify-self: center;
 }
 
 section.chat-container {
