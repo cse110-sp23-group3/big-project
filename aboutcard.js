@@ -1,3 +1,4 @@
+// the CSS for each about-card
 const CARD_STYLE = `
 article.about-card-left {
   width: 100%;
@@ -59,6 +60,7 @@ h2 {
 }
 `
 
+// the file path to the default profile image
 const DEFAULT_PROFILE = "profile.webp";
 
 /**

@@ -1,43 +1,29 @@
-/* points to the file that stores the team profiles in JSON format
-   File format guide:
+/* The file path to the JSON file, which contains the data for the profiles.
+   This file contains an array of obects. Each object must be in the format accepted by an about-card's data attribute. E.g.:
    [
       {
-        "profileSrc": "profile.webp",
-        "name": "Test Name",
-        "role": "Test Role",
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ab, debitis quos nam, ut impedit quae illo, veritatis unde dolorum enim ipsum. Cupiditate non voluptas quisquam maiores odit obcaecati omnis.",
-        "profilePos": "left"
+        "profileSrc": "string",
+        "name": "string",
+        "role": "string",
+        "description": "string",
+        "profilePos": "string"
       },
       {
-        "profileSrc": "profile.webp",
-        "name": "Test Name 2",
-        "role": "Test Role 2",
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ab, debitis quos nam, ut impedit quae illo, veritatis unde dolorum enim ipsum. Cupiditate non voluptas quisquam maiores odit obcaecati omnis.",
-        "profilePos": "right"
-      },
-      {
-        "profileSrc": "profile.webp",
-        "name": "Test Name 3",
-        "role": "Test Role",
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ab, debitis quos nam, ut impedit quae illo, veritatis unde dolorum enim ipsum. Cupiditate non voluptas quisquam maiores odit obcaecati omnis.",
-        "profilePos": "left"
-      },
-      {
-        "profileSrc": "profile.webp",
-        "name": "Test Name 4",
-        "role": "Test Role",
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ab, debitis quos nam, ut impedit quae illo, veritatis unde dolorum enim ipsum. Cupiditate non voluptas quisquam maiores odit obcaecati omnis.",
-        "profilePos": "right"
+        "profileSrc": "string",
+        "name": "string",
+        "role": "string",
+        "description": "string",
+        "profilePos": "string"
       }
-    ]
-
+   ]
+   Note: "profileSrc" is optional; the other keys are not.
  */
 const TEAM_PROFILE_PATH = "aboutprofiles.json";
 
 window.addEventListener('DOMContentLoaded', init);
 
 /**
- * The main function that runs on this page
+ * The main function that runs on this page, after the page has loaded.
  */
 async function init() {
   let teamProfiles = await loadProfiles(TEAM_PROFILE_PATH)
@@ -46,18 +32,19 @@ async function init() {
 
 /**
  * @description Reads in the profiles from the JSON file.
- * @param {string} filename - the name of the file that stores the profiles
+ * @param {string} filepath - the path to the JSON file that stores the profile data
  * @returns {Promise<Array<Object>>} The data from the JSON file
  */
-function loadProfiles(filename) {
-  return fetch(filename).then(function(response) {
+function loadProfiles(filepath) {
+  return fetch(filepath).then(function(response) {
     return response.json();
   });
 }
 
 /**
  * @description Adds the profiles to the About Us page
- * @param {Array<Object>>} teamProfiles 
+ * @param {Array<Object>>} teamProfiles - An array of Objects containing the profile data.
+ * @see {@link AboutCard}
  */
 function addProfilesToPage(teamProfiles) {
   const aboutHolder = document.getElementById("about-column");
