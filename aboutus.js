@@ -65,6 +65,5 @@ function addProfilesToPage(teamProfiles) {
     let card = document.createElement('about-card');
     card.data = teamProfiles[i];
     aboutHolder.append(card);
-    console.log(aboutHolder.children);
   }
 }

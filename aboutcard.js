@@ -1,4 +1,4 @@
-const cardStyle = `
+const CARD_STYLE = `
 article.about-card-left {
   width: 100%;
   display: grid;
@@ -59,36 +59,27 @@ h2 {
 }
 `
 
-const cardProfileLeftHTML = `
-<img class="profile-left" src="profile.webp">
-<div class="about-card-inner-holder-right">
-  <h2 class="name">Name | Role</h2>
-  <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ab, debitis quos nam, ut impedit quae illo, veritatis unde dolorum enim ipsum. Cupiditate non voluptas quisquam maiores odit obcaecati omnis.</p>
-</div>
-`
-
-const cardProfileRightHTML = `
-<img class="profile-right" src="profile.webp">
-<div class="about-card-inner-holder-left">
-  <h2 class="name">Name | Role</h2>
-  <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ab, debitis quos nam, ut impedit quae illo, veritatis unde dolorum enim ipsum. Cupiditate non voluptas quisquam maiores odit obcaecati omnis.</p>
-</div>
-`
-
 const DEFAULT_PROFILE = "profile.webp";
 
+/**
+ * @classdesc A custom AboutCard element for the About page that contains information about one person. Includes a person's name, role, and description. Optionally includes a profile picture. The profile picture can be either on the right or the left.
+ */
 class AboutCard extends HTMLElement {
+
+  /**
+   * @constructor The constructor for the AboutCard custom HTML element.
+   */
   constructor() {
     super();
     let shadowDOM = this.attachShadow({mode: 'open'});
     let article = document.createElement("article");
     let style = document.createElement("style");
-    style.textContent = cardStyle;
+    style.textContent = CARD_STYLE;
     shadowDOM.append(style, article);
   }
 
   /**
-   * @description This function sets the data in the card (profile pic, name, etc.)
+   * @description This function sets the data in the card (profile pic, name, etc.). It is called when the about-card's data attribute is set. The data attribute should be set to a JavaScript object in the format below.
    * @param {Object} data - An object containing the data to put into the card in the following format:
    *                        {
    *                          "profileSrc": "string",
@@ -97,14 +88,18 @@ class AboutCard extends HTMLElement {
    *                          "description": "string",
    *                          "profilePos": "string"
    *                        }
+   *                        The "profileSrc" key is the only optional key. If it is not present, the profile picture defaults to a preset one.
    */
   set data(data) {
+    // if argument is empty, return
     if (!data) {
       return;
     }
 
     let shadowDOM = this.shadowRoot;
     let article = shadowDOM.lastChild;
+    
+    // the class name of the article determines whether the profile picture is on the right or left
     if (data['profilePos'] === "left") {
       article.classList.add("about-card-left");
     } else if (data['profilePos'] === "right") {
