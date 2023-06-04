@@ -40,5 +40,12 @@
     "role": "Developer",
     "description": "Nick is a fourth year bioinformatics major at UCSD. His favorite animal is the peacock. He enjoys being out in nature and playing board games with his friends from church. Although he does not endorse the practice of palm reading, he has enjoyed learning about software engineering in CSE 110.",
     "profilePos": "right"
+  },
+  {
+    "profileSrc": "profile_images/michael.jpg",
+    "name": "Michael",
+    "role": "Developer",
+    "description": "Michael is a second year Computer Science major from ERC. His favorite animal is the brown bear and he has visited over 20 countries so far.",
+    "profilePos": "left"
   }
 ]
