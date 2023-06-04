@@ -1,0 +1,43 @@
+[
+  {
+    "profileSrc": "profile_images/faith.jpg",
+    "name": "Faith Rivera",
+    "role": "Team Lead",
+    "description": "Faith is a second year undergraduate studying computer science in Sixth College. Her favorite animals are cheetahs or dogs. She loves to dance and also has a twin sister at UCSD!",
+    "profilePos": "left"
+  },
+  {
+    "profileSrc": "profile_images/chay.png",
+    "name": "Chay",
+    "role": "Designer",
+    "description": "I'm Chay, a designer with a keen interest in exploring the worlds of Virtual Reality, Augmented Reality, and web design. Currently in my 4th year of studying Computer Science, I’m excited about merging technology and creativity to craft engaging experiences across various platforms, including the web.",
+    "profilePos": "right"
+  },
+  {
+    "profileSrc": "profile_images/chris.jpg",
+    "name": "Chris",
+    "role": "Developer",
+    "description": "My name is Chris Tian and I'm a second-year CS major. My favorite animal is the cheetah because it is the fastest animal on earth and I am impressed by its hunting ability. I'm a pretty adventurous guy but afraid of the feeling of weightlessness such as bungee jumping and riding roller coasters.",
+    "profilePos": "left"
+  },
+  {
+    "profileSrc": "profile_images/jiaen.jpg",
+    "name": "Jiaen",
+    "role": "Planner",
+    "description": "Jiaen Yu, second year graduate student of CSE department. Cat person, Coconut water lover, Soccer fan and amateur football player.",
+    "profilePos": "right"
+  },
+  {
+    "profileSrc": "profile_images/mico.jpg",
+    "name": "Mico",
+    "role": "Developer",
+    "description": "Mico Guinto; Computer Engineering; Emperor Penguin; My go to In-N-Out order is 2 4x4s Animal Style, extra tomatoes, no pickles, cut in half, banana peppers",
+    "profilePos": "left"
+  },
+  {
+    "name": "-",
+    "role": "-",
+    "description": "-",
+    "profilePos": "right"
+  }
+]

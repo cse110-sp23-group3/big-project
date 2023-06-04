@@ -21,6 +21,7 @@ img.profile-left {
   grid-column-end: 1;
   align-self: center;
   justify-self: center;
+  object-fit: cover;
 }
 
 img.profile-right {
@@ -31,6 +32,7 @@ img.profile-right {
   grid-column-end: 2;
   align-self: center;
   justify-self: center;
+  object-fit: cover;
 }
 
 h1 {
@@ -73,16 +75,13 @@ const cardProfileRightHTML = `
 </div>
 `
 
+const DEFAULT_PROFILE = "profile.webp";
+
 class AboutCard extends HTMLElement {
-  constructor(profilePos) {
+  constructor() {
     super();
     let shadowDOM = this.attachShadow({mode: 'open'});
     let article = document.createElement("article");
-    if (profilePos === "left") {
-      article.classList.add("about-card-left");
-    } else if (profilePos === "right") {
-      article.classList.add("about-card-right");
-    }
     let style = document.createElement("style");
     style.textContent = cardStyle;
     shadowDOM.append(style, article);
@@ -95,7 +94,7 @@ class AboutCard extends HTMLElement {
    *                          "profileSrc": "string",
    *                          "name": "string",
    *                          "role": "string",
-   *                          "description": "string"
+   *                          "description": "string",
    *                          "profilePos": "string"
    *                        }
    */
@@ -106,10 +105,27 @@ class AboutCard extends HTMLElement {
 
     let shadowDOM = this.shadowRoot;
     let article = shadowDOM.lastChild;
+    if (data['profilePos'] === "left") {
+      article.classList.add("about-card-left");
+    } else if (data['profilePos'] === "right") {
+      article.classList.add("about-card-right");
+    }
     if (article.classList[0] === "about-card-left") {
-      article.innerHTML = cardProfileLeftHTML;
+      article.innerHTML = `
+      <img class="profile-left" src="${data['profileSrc'] ? data['profileSrc'] : DEFAULT_PROFILE}">
+      <div class="about-card-inner-holder-right">
+        <h2 class="name">${data['name']} | ${data['role']}</h2>
+        <p class="description">${data['description']}</p>
+      </div>
+      `;
     } else if (article.classList[0] === "about-card-right") {
-      article.innerHTML = cardProfileRightHTML;
+      article.innerHTML = `
+      <img class="profile-right" src="${data['profileSrc'] ? data['profileSrc'] : DEFAULT_PROFILE}">
+      <div class="about-card-inner-holder-left">
+        <h2 class="name">${data['name']} | ${data['role']}</h2>
+        <p class="description">${data['description']}</p>
+      </div>
+      `;
     }
   }
 }
